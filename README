@@ -1,0 +1,5 @@
+Pull's pdfs from usual page and Ilias.
+To make it work you have to edit the url's and the username.
+
+Requires:
+python-beautifulsoup python-mechanize python-keyring
