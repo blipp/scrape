@@ -116,7 +116,7 @@ def syncfolders_ilias(br, folder, url, onlinelist):
                 savefile.close()
                 print( "[++] " + filepath)
                 newfiles = newfiles + filepath  +"\n"
-    print "[e-] " + folder + " beendet"
+    print "[e-] " + folder + " completed"
     return newfiles
 
 class ilias_browser(mechanize.Browser):
@@ -214,21 +214,21 @@ def syncfolders(folder, url, onlinelist):
                 savefile.close()
                 print( "[++] " + filepath)
                 newfiles = newfiles + filepath  +"\n"
-    print "[e-] " + folder + " beendet"
+    print "[e-] " + folder + " completed"
     return newfiles
 
 
 def normdir(folder, url, regex):
-    print "[s+] " + folder + " gestartet"
+    print "[s+] " + folder + " started"
     onlinelist = get_onlinelist(url, regex)
     return syncfolders(folder, url, onlinelist)
 def iliasdir(folder, url, regex):
-    print "[s+] " + folder + " gestartet"
+    print "[s+] " + folder + " started"
     br = ilias_browser()
     onlinelist = get_ilias_onlinelist(br, url, '.*')    
     for n in xrange(1,2):
         if len(onlinelist)<1:
-            print "Fehler beim holen!\n Neuer Versuch (" + str(n+1) + "/3)"
+            print "Failed fetching!\n Next try (" + str(n+1) + "/3)"
             print onlinelist
             br = ilias_browser()
             onlinelist = get_ilias_onlinelist(br, url, '.*')
@@ -253,6 +253,6 @@ if __name__ == '__main__':
                 newfiles = newfiles + iliasdir(stack[subject]["folder"],stack[subject]["url"],stack[subject]["regex"])
             else:
                 newfiles = newfiles + normdir(stack[subject]["folder"],stack[subject]["url"],stack[subject]["regex"])
-    f = open(os.path.expanduser('~')+"/zu_drucken.txt", "w")
+    f = open(os.path.expanduser('~')+"/to_print.txt", "w")
     f.write(newfiles.encode('utf8'))
     f.close()
